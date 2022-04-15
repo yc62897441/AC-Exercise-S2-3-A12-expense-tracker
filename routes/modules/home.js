@@ -32,24 +32,8 @@ router.get('/', (req, res) => {
           }
         })
         .catch(error => console.log(error))
-
     })
     .catch(error => console.log(error))
 })
-
-// 新增單筆支出(從表單至資料庫)
-// router.post('/', (req, res) => {
-//   const reqBody = req.body
-//   const newRecord = new Record({
-//     name: reqBody.name,
-//     category: reqBody.category,
-//     date: reqBody.date,
-//     amount: reqBody.amount
-//   })
-
-//   newRecord.save()
-//     .then(res.redirect('/'))
-//     .catch(error => console.log(error))
-// })
 
 module.exports = router
