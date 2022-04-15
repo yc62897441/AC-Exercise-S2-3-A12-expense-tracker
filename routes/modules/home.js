@@ -7,7 +7,7 @@ const Category = require('../../models/Category')
 
 // 顯示首頁
 router.get('/', (req, res) => {
-  let workDone = false
+  let loadIconWorkDone = false
   Record.find()
     .lean()
     .then(records => {
@@ -25,9 +25,9 @@ router.get('/', (req, res) => {
             const icon = categories.find(category => category.name === records[i].category).icon
             records[i].categoryIcon = icon
           }
-          workDone = true
-          
-          if (workDone) {
+          loadIconWorkDone = true
+
+          if (loadIconWorkDone) {
             res.render('index', { records: records, totalAmount: totalAmount })
           }
         })

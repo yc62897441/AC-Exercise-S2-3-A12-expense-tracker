@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   Record.find()
     .lean()
     .then(records => {
-      let workDone = false
+      let loadIconWorkDone = false
       // 取出對應 category 的 icon
       Category.find()
         .lean()
@@ -26,27 +26,28 @@ router.get('/', (req, res) => {
             const icon = categories.find(category => category.name === item.category).icon
             item.categoryIcon = icon
           })
-          workDone = true
+          loadIconWorkDone = true
+
+          // filterCategory 為空字串，表示選取"全部類別"；若否，則為某特定之 category
+          if (filterCategory === '') {
+            // 篩選出資料清單
+            filterRecord = [...records]
+            // 計算篩選資料清單之各筆資料之總金額
+            for (let i = 0; i < filterRecord.length; i++) {
+              totalAmount += filterRecord[i].amount
+            }
+          } else {
+            filterRecord = records.filter(item => item.category === filterCategory)
+            for (let i = 0; i < filterRecord.length; i++) {
+              totalAmount += filterRecord[i].amount
+            }
+          }
+
+          if (loadIconWorkDone) {
+            res.render('index', { records: filterRecord, totalAmount: totalAmount, filterCategory: filterCategory })
+          }
         })
         .catch(error => console.log(error))
-
-      if (workDone) {
-        // filterCategory 為空字串，表示選取"全部類別"；若否，則為某特定之 category
-        if (filterCategory === '') {
-          // 篩選出資料清單
-          filterRecord = [...records]
-          // 計算篩選資料清單之各筆資料之總金額
-          for (let i = 0; i < filterRecord.length; i++) {
-            totalAmount += filterRecord[i].amount
-          }
-        } else {
-          filterRecord = records.filter(item => item.category === filterCategory)
-          for (let i = 0; i < filterRecord.length; i++) {
-            totalAmount += filterRecord[i].amount
-          }
-        }
-        res.render('index', { records: filterRecord, totalAmount: totalAmount, filterCategory: filterCategory })
-      }
     })
     .catch(error => console.log(error))
 })
