@@ -24,7 +24,7 @@
   </div>
 
   <div class="mb-5">
-    <a href="/new">
+    <a href="/record">
       <button class="btn btn-success">新增支出</button>
     </a>
   </div>
@@ -51,11 +51,11 @@
           {{!-- <a href="/edit/{{this._id}}">
             <button type="button" class="btn btn-warning me-1">編輯</button>
           </a> --}}
-          <form action="/edit/{{this._id}}?_method=get" method="post">
+          <form action="/record/{{this._id}}?_method=get" method="post">
             <button type="summit" class="btn btn-warning me-1">編輯</button>
           </form>
 
-          <form action="/delete/{{this._id}}?_method=delete" method="post">
+          <form action="/record/{{this._id}}?_method=delete" method="post">
             <button type="summit" class="btn btn-danger ms-1 me-1">刪除</button>
           </form>
           {{!-- <a href="/delete/{{this._id}}">

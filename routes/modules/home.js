@@ -38,18 +38,18 @@ router.get('/', (req, res) => {
 })
 
 // 新增單筆支出(從表單至資料庫)
-router.post('/', (req, res) => {
-  const reqBody = req.body
-  const newRecord = new Record({
-    name: reqBody.name,
-    category: reqBody.category,
-    date: reqBody.date,
-    amount: reqBody.amount
-  })
+// router.post('/', (req, res) => {
+//   const reqBody = req.body
+//   const newRecord = new Record({
+//     name: reqBody.name,
+//     category: reqBody.category,
+//     date: reqBody.date,
+//     amount: reqBody.amount
+//   })
 
-  newRecord.save()
-    .then(res.redirect('/'))
-    .catch(error => console.log(error))
-})
+//   newRecord.save()
+//     .then(res.redirect('/'))
+//     .catch(error => console.log(error))
+// })
 
 module.exports = router
