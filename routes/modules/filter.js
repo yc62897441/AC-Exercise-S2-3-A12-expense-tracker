@@ -37,13 +37,14 @@ router.get('/', (req, res) => {
         for (let i = 0; i < filterRecord.length; i++) {
           totalAmount += filterRecord[i].amount
         }
+        workDone = true
       } else {
         filterRecord = records.filter(item => item.category === filterCategory)
         for (let i = 0; i < filterRecord.length; i++) {
           totalAmount += filterRecord[i].amount
         }
+        workDone = true
       }
-      workDone = true
 
       if (workDone) {
         res.render('index', { records: filterRecord, totalAmount: totalAmount, filterCategory: filterCategory })
