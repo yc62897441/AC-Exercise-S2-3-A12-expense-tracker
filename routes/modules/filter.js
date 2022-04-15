@@ -26,27 +26,25 @@ router.get('/', (req, res) => {
             const icon = categories.find(category => category.name === item.category).icon
             item.categoryIcon = icon
           })
+          workDone = true
         })
         .catch(error => console.log(error))
 
-      // filterCategory 為空字串，表示選取"全部類別"；若否，則為某特定之 category
-      if (filterCategory === '') {
-        // 篩選出資料清單
-        filterRecord = [...records]
-        // 計算篩選資料清單之各筆資料之總金額
-        for (let i = 0; i < filterRecord.length; i++) {
-          totalAmount += filterRecord[i].amount
-        }
-        workDone = true
-      } else {
-        filterRecord = records.filter(item => item.category === filterCategory)
-        for (let i = 0; i < filterRecord.length; i++) {
-          totalAmount += filterRecord[i].amount
-        }
-        workDone = true
-      }
-
       if (workDone) {
+        // filterCategory 為空字串，表示選取"全部類別"；若否，則為某特定之 category
+        if (filterCategory === '') {
+          // 篩選出資料清單
+          filterRecord = [...records]
+          // 計算篩選資料清單之各筆資料之總金額
+          for (let i = 0; i < filterRecord.length; i++) {
+            totalAmount += filterRecord[i].amount
+          }
+        } else {
+          filterRecord = records.filter(item => item.category === filterCategory)
+          for (let i = 0; i < filterRecord.length; i++) {
+            totalAmount += filterRecord[i].amount
+          }
+        }
         res.render('index', { records: filterRecord, totalAmount: totalAmount, filterCategory: filterCategory })
       }
     })
