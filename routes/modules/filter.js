@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
   Record.find()
     .lean()
     .then(records => {
+      let workDone = false
       // 取出對應 category 的 icon
       Category.find()
         .lean()
@@ -42,7 +43,11 @@ router.get('/', (req, res) => {
           totalAmount += filterRecord[i].amount
         }
       }
-      res.render('index', { records: filterRecord, totalAmount: totalAmount, filterCategory: filterCategory })
+      workDone = true
+
+      if (workDone) {
+        res.render('index', { records: filterRecord, totalAmount: totalAmount, filterCategory: filterCategory })
+      }
     })
     .catch(error => console.log(error))
 })
